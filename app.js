@@ -12,8 +12,10 @@ var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'jade'); // use only one view engine
+//app.set('view engine', 'ejs'); // use only one view engine
 
+// use middleware
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
@@ -58,3 +60,8 @@ app.use(function(err, req, res, next) {
 
 
 module.exports = app;
+
+// create the HTTP server
+var server = app.listen(3000, function() {
+  console.log('Listening on port 3000');
+});
