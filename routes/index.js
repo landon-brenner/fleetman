@@ -3,7 +3,8 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('navbar-fixed-top', { title: 'Fleet Manager 0.1' });
+  // res.render('navbar-fixed-top', { title: 'Fleet Manager 0.1' });
+  res.render('index', {title: 'Fleet Manager 0.1'});
 });
 
 module.exports = router;
