@@ -1,9 +1,16 @@
 extends layout
 
-block content
-  h1= title
-  p Welcome to #{title}
-  button.btn Fire Missiles
+block nav
+  include navbar-fixed-top2.jade
 
-block scripts
-  script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js')
+block content
+  .container
+    // Main component for a primary marketing message or call to action
+    .jumbotron
+      h1 #{title}
+      p Welcome to #{title + ' ' + version}
+      p
+        | This example is a quick exercise to illustrate how the default, static and fixed to top navbar work. It includes the responsive CSS and HTML, so it also adapts to your viewport and device.
+      p To see the difference between static and fixed top navbars, just scroll.
+      p
+        a.btn.btn-lg.btn-primary(href='#', role='button') Fire Missiles &raquo;
