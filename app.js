@@ -5,6 +5,28 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+// Database file setup - check if DB exists, require SQLite3
+var fs = require('fs');
+var dbfile = path.join(__dirname,'db','test.db');
+var dbexists = fs.existsSync('dbfile');
+var sqlite3 = require('sqlite3').verbose();
+var db = new sqlite3.Database(dbfile);
+
+// Create the DB if it doesn't exist and throw some random data in it
+db.serialize(function() {
+  if(!dbexists) {
+    db.run('CREATE TABLE Stuff (Thing TEXT)');
+  }
+  var stmt = db.prepare('INSERT INTO Stuff VALUES (?)');
+  // Insert some stuff
+  var rnd;
+  for (i=0; i<10; ++i) {
+    rnd = Math.floor(Math.random() * 10000000);
+    stmt.run('Thing #' + rnd);
+  }
+});
+
+// require routes, users
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
@@ -16,8 +38,6 @@ app.set('view engine', 'jade'); // use only one view engine
 //app.set('view engine', 'ejs'); // use only one view engine
 
 // use middleware
-// uncomment after placing your favicon in /public
-//app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
